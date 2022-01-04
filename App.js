@@ -1,10 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import AppRouter from './config/routing/routing'
+import { StyleSheet } from 'react-native'
+import {AppRouter} from './config/routing/routing'
+import { ApplicationProvider } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
 // import Home from './config/screens/home'
 const App = () => {
   return (
-    <AppRouter/>
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <AppRouter />
+    </ApplicationProvider>
   )
 }
 
