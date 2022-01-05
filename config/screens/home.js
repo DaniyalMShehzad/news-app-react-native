@@ -5,6 +5,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { Input } from '@ui-kitten/components';
 // import Search1 from "react-native-vector-icons/AntDesign"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Spinner } from '@ui-kitten/components';
 const Home = () => {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
@@ -72,7 +73,9 @@ const Home = () => {
                             style={styles.input}
                             onChangeText={(e) => setDataType(e)}
                         />
-                        <View style={styles.DropPicker}>
+                        {
+                            (data)?
+                            <View style={styles.DropPicker}>
                             <DropDownPicker
                                 open={open}
                                 value={value}
@@ -82,8 +85,11 @@ const Home = () => {
                                 setItems={setItems}
                                 zIndexInverse={9999}
                                 autoScroll={true}
-                            />
+                                />
                         </View>
+                        :
+                        <Spinner/>
+                            }
                     </View>
                     <View style={{ height: "73%", justifyContent: "center", marginBottom: 0,}}>
                         <ScrollView>
@@ -118,7 +124,7 @@ const Home = () => {
                                             })
                                             // })
                                             :
-                                            <Text>No Data Avalible</Text>
+                                            <Spinner/>
                                     }
                                 </View>
                             </>

@@ -3,25 +3,25 @@ import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import styling from '../../styling'
+import { Spinner } from '@ui-kitten/components';
 const SaveData = () => {
     const [alldata, setAllData] = useState([])
     const [data, setData] = useState([])
+
+    const [data2, setData2] = useState([])
+    console.log("data-------------->", data2);
     useEffect(() => {
         AsyncStorage.getItem('savedata', (err, result) => {
-            setAllData(JSON.parse(result))
+            setTimeout(() => {
+                console.log("data Before-------------->", alldata);
+                setAllData(JSON.parse(result))
+            }, 500)
+            console.log(result, "hhjhl;l;l;l;;l;l");
             // setData(alldata);
         })
-        // , (err, result) => {
-        //     setAllData(JSON.parse(result))
-        //     // console.log(JSON.parse(result));
-        // }
     }, [])
-    // useEffect(()=>{
-    //     setData(alldata)
-    // },[data])
-    // console.log(alldata);
     const deletAll = () => {
-        AsyncStorage.removeItem('savedata').then(()=>{
+        AsyncStorage.removeItem('savedata').then(() => {
             setAllData()
         })
     }
@@ -67,11 +67,15 @@ const SaveData = () => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <List
-                        style={styles.container}
-                        data={alldata}
-                        renderItem={renderItem}
-                    />
+                    {(alldata)?
+                        <List
+                            style={styles.container}
+                            data={alldata}
+                            renderItem={renderItem}
+                        />
+                        :
+                        <Spinner/>
+                    }
                 </View>
             </View>
         </View>
